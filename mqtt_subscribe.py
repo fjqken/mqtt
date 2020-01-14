@@ -83,12 +83,14 @@ class Mqtt_subscribe(threading.Thread):
 
 
 if __name__ == "__main__":
-    subtopic = "$xlink/device/activation;"
-    client_id1 = "X:DEVICE;A:2;V:1"
-    pid = "160002babf5e03e9160002babf5e2801"
-    pkey = "8aa99dc6f6cd526a83193079ec952602"
-    password1 = encrypt_md5(pid + pkey)
+    subtopic = "$xlink/device/activation"
+    client_id1 = "X:DEVICE;A:2;V:1;"
+    pid = "160002baec9203e9160002baec92c601"
+    pkey = "7c74dc459c1b55926184df2f3bd29d65"
+    print(pid+pkey)
+    password1 = (encrypt_md5(pid+pkey))
     print(password1)
+    print(client_id1)
     t = Mqtt_subscribe(subtopic, client_id1, pid, password1)
     a = t.client
     t.start()
