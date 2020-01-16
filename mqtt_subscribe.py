@@ -48,6 +48,8 @@ class Mqtt_subscribe(threading.Thread):
         print("Connected with result code " + str(rc))
         print("topic:" + subtopic)
         client.subscribe(subtopic, 2)
+        self.client.on_message = self.on_message()
+        print("订阅成功")
 
     def on_message(self, client, userdata, msg):
         # print(msg.topic + " " + msg.payload.decode("utf-8"))
@@ -83,14 +85,14 @@ class Mqtt_subscribe(threading.Thread):
 
 
 if __name__ == "__main__":
-    subtopic = "$xlink/device/activation"
-    client_id1 = "X:DEVICE;A:2;V:1;"
-    pid = "160002baec9203e9160002baec92c601"
-    pkey = "7c74dc459c1b55926184df2f3bd29d65"
-    print(pid+pkey)
-    password1 = (encrypt_md5(pid+pkey))
+    subtopic = "$2"
+    client_id1 = "X:DEVICE;A:3;V:1;"
+    cid = "5e1d62646fb0bd7c4bdaa7ac"
+    ckey = "dc33baa3-34df-4048-a20c-bfb71f4fc0f5"
+    print(cid+ckey)
+    password1 = (encrypt_md5(cid+ckey))
     print(password1)
     print(client_id1)
-    t = Mqtt_subscribe(subtopic, client_id1, pid, password1)
+    t = Mqtt_subscribe(subtopic, client_id1, cid, password1)
     a = t.client
     t.start()

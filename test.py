@@ -31,26 +31,24 @@ def encrypt_md5(s):
     return new_md5.hexdigest()
 
 
-class Activation():
+class Activation:
     def __init__(self):
         print("init")  # never prints
-
-    pid = "160002baec9203e9160002baec92c601"
+        self.answer_topic = "$xlink/device/activation/result"
+        self.device_topic = "$xlink/device/activation"
+        self.pid = "160002baec9203e9160002baec92c601"
+        self.pkey = "7c74dc459c1b55926184df2f3bd29d65"
+        self.client_id1 = "X:DEVICE;A:2;V:1;"
 
     def activation_device(self):
-        subtopic = "$xlink/device/activation"
         client_id1 = "X:DEVICE;A:2;V:1;"
-        pid = self.pid
-        pkey = "7c74dc459c1b55926184df2f3bd29d65"
-        message1 = json.dump({"product_id": pid, "mac": "AAA1" })
-        print(pid + pkey)
-        password1 = (encrypt_md5(pid + pkey))
-        print(password1)
-        print(client_id1)
-        mess = Mqtt_subscribe(subtopic, client_id1, pid, password1)
+        message1 = json.dumps({"product_id": self.pid, "mac": "AAA1"})
+        password1 = (encrypt_md5(self.pid + self.pkey))
+        mess = Mqtt_subscribe(self.answer_topic, client_id1, self.pid, password1)
         mess.start()
-        mqtt_Publish(subtopic, message1, pid, pkey)
+        mqtt_Publish(self.device_topic, message1, self.pid, password1)
 
 
-a =Activation()
-a.activation_device
+if __name__ == '__main__':
+    a = Activation()
+    a.activation_device()

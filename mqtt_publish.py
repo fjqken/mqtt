@@ -25,7 +25,7 @@ def encrypt_md5(s):
 
 
 if __name__ == '__main__':
-    subtopic = "$xlink/device/activation"
+    subtopic = "$1"
     client_id1 = "X:DEVICE;A:2;V:1;"
     pid = "160002baec9203e9160002baec92c601"
     pkey = "7c74dc459c1b55926184df2f3bd29d65"
